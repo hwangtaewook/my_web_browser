@@ -11,9 +11,11 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final WebViewController _webViewController = WebViewController()
+  final String _url = 'https://flutter.dev';
+
+  late final WebViewController _webViewController = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..loadRequest(Uri.parse('https://flutter.dev'));
+    ..loadRequest(Uri.parse(_url));
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +29,19 @@ class _MainScreenState extends State<MainScreen> {
           ),
           PopupMenuButton<String>(
             onSelected: (value) {
-              print(value);
+              _webViewController.loadRequest(Uri.parse(value));
             },
             itemBuilder: (context) => [
               const PopupMenuItem<String>(
-                value: 'https://www,geogle.com',
+                value: 'https://www.google.com',
                 child: Text('구글'),
               ),
               const PopupMenuItem<String>(
-                value: 'https://www,naver.com',
+                value: 'https://www.naver.com',
                 child: Text('네이버'),
               ),
               const PopupMenuItem<String>(
-                value: 'https://www,kakao.com',
+                value: 'https://www.kakao.com',
                 child: Text('카카오'),
               ),
             ],
