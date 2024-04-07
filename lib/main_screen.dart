@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MainScreen extends StatefulWidget {
@@ -48,12 +49,15 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      body: WillPopScope(
-        onWillPop: () async {
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) async {
+          if (didPop) return;
           if (await _webViewController.canGoBack()) {
             await _webViewController.goBack();
+            return;
           }
-          return true;
+          SystemNavigator.pop();
         },
         child: WebViewWidget(
           controller: _webViewController,
