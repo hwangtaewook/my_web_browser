@@ -14,8 +14,8 @@ class _MainScreenState extends State<MainScreen> {
   final String _url = 'https://flutter.dev';
 
   late final WebViewController _webViewController = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..loadRequest(Uri.parse(_url));
+    ..setJavaScriptMode(JavaScriptMode.unrestricted) // WebView의 javascript 허용
+    ..loadRequest(Uri.parse(_url)); //Uri 요청
 
   @override
   Widget build(BuildContext context) {
