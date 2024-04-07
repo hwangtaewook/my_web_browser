@@ -48,8 +48,16 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      body: WebViewWidget(
-        controller: _webViewController,
+      body: WillPopScope(
+        onWillPop: () async {
+          if (await _webViewController.canGoBack()) {
+            await _webViewController.goBack();
+          }
+          return true;
+        },
+        child: WebViewWidget(
+          controller: _webViewController,
+        ),
       ),
     );
   }
